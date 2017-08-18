@@ -1,0 +1,10 @@
+<template name="gameCardsList">
+  Games List
+  {{#each game in games}}
+    {{> gameCard game=game}}
+  {{/each}}
+</template>
+
+<template name="gameCard">
+    {{game.name}}
+</template>

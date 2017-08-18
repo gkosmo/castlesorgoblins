@@ -1,7 +1,11 @@
 <template name="home">
     Welcome !
     <button id="create">create a game</button>
+    <button id="userDMgames">see your games</button>
     {{#if createOn}}
       {{> newgame}}
+    {{/if}}
+    {{#if userDMgamesOn}}
+      {{> gameCardsList  games=userDMgames }}
     {{/if}}
 </template>
