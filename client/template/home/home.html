@@ -1,13 +1,7 @@
 <template name="home">
     Welcome !
-    {{#if currentUser}}
-      {{#autoForm collection="Game" id="insertGameForm" type="insert"}}
-      <fieldset>
-    <legend> Be a Quest Master</legend>
-        {{> afQuickField name='name'}}
-        {{>  afQuickField name='description' row='6'}}
-      </fieldset>
-          <button type="submit" class="btn btn-primary">Insert</button>
-      {{/autoForm}}
+    <button id="create">create a game</button>
+    {{#if createOn}}
+      {{> newgame}}
     {{/if}}
 </template>
