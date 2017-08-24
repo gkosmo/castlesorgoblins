@@ -4,7 +4,7 @@ Meteor.methods({
      check(doc.name, String);
      check(doc.description, String);
      for(var i = 0; i < doc.attributeList.length; i ++){
-       check(doc.attributeList[i], String);
+    //   check(doc.attributeList[i], attributeSchema);
      }
      doc.creatorId = this.userId;
      doc.members= [];
@@ -13,3 +13,17 @@ Meteor.methods({
 
 });
 
+var attributeSchema = new SimpleSchema({
+  name: {
+    type: String,
+    label:' Attribute Name'
+  },
+  point: {
+    type: Number,
+    label:'Attribute Point'
+  },
+  description: {
+    type: String,
+    label: "description"
+  }
+});
