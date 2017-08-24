@@ -1,14 +1,32 @@
 <template name="newgame">
+
     <!-- {{> quickForm collection="Game"  id="insertBookFormQuick" type="insert"}} -->
   {{#if currentUser}}
-    {{#autoForm collection="Game" id="insertGameForm" type="insert"}}
+    {{#autoForm collection="Game" id="insertGameForm" type="method" meteormethod="createGame"}}
     <fieldset>
   <legend> Be a Quest Master</legend>
-      {{> afQuickField name='name'}}
-      {{>  afQuickField name='description' row=6}}
-      {{> afQuickField name='private'}}
+   <label for="name"> Name of The Game</label>
+   <input type="text" name="name">
+      <!-- {{> afQuickField name='name'}} -->
+      <label for="description">Descrption</label>
+      <input type="textarea" name="description" value="">
+      <!-- {{>  afQuickField name='description' row=6}} -->
+      <label for="private"> Private ? </label>
+      <input type="checkbox" name="private">
+      <!-- {{> afQuickField name='private'}} -->
+      {{#each attribute in attributeList }}
+            {{attribute.name}}
+      {{/each}}
+
+        <label for="attributeName"> Name of the attribute</label>
+        <input type="text" name="attributeName" value="">
+        <button id="addAttribute"> Add Attribute </button>
+      <!-- {{> afQuickField name='attributeList'}} -->
+
     </fieldset>
         <button type="submit"> Create</button>
     {{/autoForm}}
+    {{else}}
+      Please Login to play
   {{/if}}
 </template>
