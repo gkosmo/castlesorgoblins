@@ -11,5 +11,6 @@ The idea is to make a platform for role-playing games with masters of the game a
 
 - As a DM, I can Invite subscribed users
 - As a subscribed user, I can join a game 
+- As a user with a player, i can give the player to another user
 
 
