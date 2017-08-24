@@ -14,12 +14,13 @@
       <label for="private"> Private ? </label>
       <input type="checkbox" name="private">
       <!-- {{> afQuickField name='private'}} -->
-      {{#each attribute in attributeList }}
-            {{attribute.name}}
+       List of attributes
+      {{#each attribute in attributesPlayers }}
+            {{attribute}}
       {{/each}}
 
         <label for="attributeName"> Name of the attribute</label>
-        <input type="text" name="attributeName" value="">
+        <input type="text" id="attributeName" value="">
         <button id="addAttribute"> Add Attribute </button>
       <!-- {{> afQuickField name='attributeList'}} -->
 
