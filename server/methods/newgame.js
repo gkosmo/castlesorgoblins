@@ -10,4 +10,5 @@ Meteor.methods({
      doc.members= [];
      return Game.insert(doc);
   }
+  
 });
