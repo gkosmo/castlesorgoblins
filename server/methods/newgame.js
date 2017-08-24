@@ -6,10 +6,10 @@ Meteor.methods({
      for(var i = 0; i < doc.attributeList.length; i ++){
        check(doc.attributeList[i], String);
      }
-     doc[creatorId] = this.userId;
+     doc.creatorId = this.userId;
      doc.members= [];
      return Game.insert(doc);
   }
-  
+
 });
 
