@@ -6,25 +6,26 @@
     <fieldset>
   <legend> Be a Quest Master</legend>
    <label for="name"> Name of The Game</label>
-   <input type="text" name="name">
+   <input type="text" name="name" id="gameName">
       <!-- {{> afQuickField name='name'}} -->
       <label for="description">Descrption</label>
-      <input type="textarea" name="description" value="">
+      <input type="textarea" name="description" id="gameDescription" value="">
       <!-- {{>  afQuickField name='description' row=6}} -->
       <label for="private"> Private ? </label>
-      <input type="checkbox" name="private">
+      <input type="checkbox" name="private" id="privateGame">
       <!-- {{> afQuickField name='private'}} -->
-      {{#each attribute in attributeList }}
-            {{attribute.name}}
+       List of attributes
+      {{#each attribute in attributesPlayers }}
+            {{attribute}}
       {{/each}}
 
         <label for="attributeName"> Name of the attribute</label>
-        <input type="text" name="attributeName" value="">
+        <input type="text" id="attributeName" value="">
         <button id="addAttribute"> Add Attribute </button>
       <!-- {{> afQuickField name='attributeList'}} -->
 
     </fieldset>
-        <button type="submit"> Create</button>
+        <button type="submit" id="createGame"> Create</button>
     {{/autoForm}}
     {{else}}
       Please Login to play
