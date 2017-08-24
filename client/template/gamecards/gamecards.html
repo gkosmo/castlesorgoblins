@@ -3,8 +3,16 @@
   {{#each game in games}}
     {{> gameCard game=game}}
   {{/each}}
+  {{#if gameLobbyOn }}
+      {{> gameLobby game=gameVar}}
+  {{/if}}
 </template>
 
 <template name="gameCard">
-    {{game.name}}
+    <b id="gameName">{{game.name}}</b>
+
+</template>
+<template name="gameLobby">
+    <h1>  {{game.name}} </h1>
+      {{> newPlayer attributeList=game.attributeList}}
 </template>
