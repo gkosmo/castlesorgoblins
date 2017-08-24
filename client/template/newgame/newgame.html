@@ -22,11 +22,17 @@
         <input type="text" name="attributeName" value="">
         <button id="addAttribute"> Add Attribute </button>
       <!-- {{> afQuickField name='attributeList'}} -->
-
+{{> userList}}
     </fieldset>
         <button type="submit"> Create</button>
     {{/autoForm}}
     {{else}}
       Please Login to play
   {{/if}}
+</template>
+
+<template name="userList">
+    {{#each listUser}}
+       <p>User ID's</p> <p>{{_id}} <a>Add Friend</a></p>
+    {{/each}}
 </template>
