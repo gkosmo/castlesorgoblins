@@ -28,8 +28,6 @@
         <input type="number" id="attributeMaxPoint" value="">
 
         <button id="addAttribute"> Add Attribute </button>
-      <!-- {{> afQuickField name='attributeList'}} -->
-{{> userList}}
     </fieldset>
         <button type="submit" id="createGame"> Create</button>
     {{/autoForm}}
@@ -56,27 +54,26 @@
     <input type="textarea" name="playerWeakness" id="playerWeakness" value="">
     <label for="playerHistory">History</label>
     <input type="textarea" name="playerHistory" id="playerHistory" value="">
-
-
     List of General Attributes
     {{#each attribute in attributeList }}
       <label for="{{attribute.name}}">{{attribute.name}}</label>
       <input type="text" name="{{attribute.name}}" id="class" value="">
     {{/each}}
-
     List of Personnal Attributes
     {{#each attribute in attributesPlayers }}
         {{attribute}}
     {{/each}}
-
       <label for="attributePersonnalName"> Name of the attribute</label>
       <input type="text" id="attributePersonnalName" value="">
       <button id="addAttribute"> Add Attribute </button>
-    <!-- {{> afQuickField name='attributeList'}} -->
+      <button id="addPlayer"></button>
   </fieldset>
 </template>
 <template name="userList">
+    <h1 id="messageAddingUser"></h1>
     {{#each listUser}}
-       <p>User ID's</p> <p>{{_id}} <a>Add Friend</a></p>
+       <p>User ID's</p>
+              <h4 id="addThisFriend">{{username}} </h4>
+       <p> Add this Friend </p>
     {{/each}}
 </template>

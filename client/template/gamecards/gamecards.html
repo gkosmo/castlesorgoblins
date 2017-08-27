@@ -14,5 +14,10 @@
 </template>
 <template name="gameLobby">
     <h1>  {{game.name}} </h1>
+      {{#if userIsDM}}
+          {{> userList}}
+      {{/if}}
+      {{#if userIsPlayer}}
       {{> newPlayer attributeList=game.attributeList}}
+      {{/if}}
 </template>

@@ -1,6 +1,5 @@
 Template.gameCardsList.events({
   "click #gameName": function(event, template){
-     console.log(this.game);
      Template.instance().game.set(this.game);
      return  Template.instance().gameOn.set(true);
   }
@@ -22,4 +21,17 @@ Template.gameCardsList.onCreated(function(){
     self.autorun(function(){
 
     });
+});
+
+Template.gameLobby.helpers({
+  userIsDM: function(){
+    return this.game.creatorId == Meteor.userId();
+  },
+  userIsPlayer: function(){
+    var a = false;
+    for (var i = 0; i < this.game.members.length; i++ ){
+      if( this.game.members[i].userId == Meteor.user().username ) { a = true;}
+    }
+      return a;
+  }
 });
