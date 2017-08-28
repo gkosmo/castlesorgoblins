@@ -4,6 +4,28 @@ Template.userList.helpers({
         return Meteor.users.find({});
     }
 });
+Template.userList.events({
+  "click #addThisFriend": function(event, template){
+     console.log(event);
+     console.log(this.game);
+     console.log(template.data.game);
+     Meteor.call("addThisFriend", event.target.innerText, template.data.game, function(error, result){
+       if(error){
+
+         console.log("error", error);
+       }
+       if(result){
+       }
+     });
+  }
+});
+Template.userList.onCreated(function(){
+  var self = this;
+  self.attributesPlayers = new ReactiveVar([]);
+  self.autorun(function(){
+    self.subscribe('userData');
+  });
+});
 Template.newgame.onCreated(function(){
   var self = this;
   self.attributesPlayers = new ReactiveVar([]);
