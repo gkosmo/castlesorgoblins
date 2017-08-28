@@ -50,15 +50,23 @@ Template.newgame.events({
     game.private = template.find('#privateGame').checked;
     game.attributeList = Template.instance().attributesPlayers.get();
     game.members = [];
-    console.log(game);
+   var parentView = Blaze.currentView.parentView.parentView;
+   var parentInstance = parentView.templateInstance();
+
+
     Meteor.call("createGame",game, function(error, result){
       if(error){
         console.log("error", error);
       }
       if(result){
          console.log("yey");
+         // replace parentVariable with the name of the instance variable
+              parentInstance.createOn.set(false);
+              parentInstance.userDMgames.set(true);
+
       }
     });
+
   }
 });
 Template.newgame.helpers({

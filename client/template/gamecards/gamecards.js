@@ -2,6 +2,18 @@ Template.gameCardsList.events({
   "click #gameName": function(event, template){
      Template.instance().game.set(this.game);
      return  Template.instance().gameOn.set(true);
+  },
+  "click #deleteGame":function(event,template){
+     Meteor.call("deleteGame", template.game.get() , function(error, result){
+       if(error){
+         console.log("error", error);
+       }
+       if(result){
+         template.gameOn.set(false);
+
+        return  console.log('deleted');
+       }
+     });
   }
 });
 
