@@ -20,5 +20,8 @@ Meteor.methods({
             members: member
         } });
 
+  },
+  deleteGame: function(game){
+    return Game.remove({_id: game._id});
   }
 });
