@@ -22,4 +22,10 @@
       {{#if userIsPlayer}}
       {{> newPlayer attributeList=game.attributeList}}
       {{/if}}
+       Members of the game:
+       {{#each member in game.members}}
+          <p>
+            {{member.name}}
+          </p>
+       {{/each}}
 </template>
