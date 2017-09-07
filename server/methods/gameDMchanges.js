@@ -1,5 +1,6 @@
 Meteor.methods({
   addThisFriend:function(username, game){
+     if( game.creatorId == this.userId ) {
     var member = {
     userId: username,
     name: username,
@@ -19,7 +20,10 @@ Meteor.methods({
     return  Game.update({_id:game._id},{ $push: {
             members: member
         } });
-
+    } else {
+      throw new Meteor.Error("couldn't add user, you need to be Game Master ",
+  "Only game masters can do this ! ");
+    }
   },
   deleteGame: function(game){
     return Game.remove({_id: game._id});

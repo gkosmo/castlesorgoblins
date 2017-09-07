@@ -6,17 +6,26 @@ Template.userList.helpers({
 });
 Template.userList.events({
   "click #addThisFriend": function(event, template){
-     console.log(event);
-     console.log(this.game);
-     console.log(template.data.game);
-     Meteor.call("addThisFriend", event.target.innerText, template.data.game, function(error, result){
-       if(error){
-
-         console.log("error", error);
-       }
-       if(result){
-       }
-     });
+     var doneAlready = false;
+     for( var i = 0; i < template.data.game.members.length; i++){
+        if ( Meteor.users.findOne({ _id: Meteor.userId() }).username == template.data.game.members[i].userId ) {
+           doneAlready = true;
+           $('#messageAddingUser').text("added already..");
+        }
+     }
+     if (!doneAlready){
+       Meteor.call("addThisFriend", event.target.innerText, template.data.game, function(error, result){
+        if(error){
+            $('#messageAddingUser').text("problem on server" + error.message );
+        }
+        if(result){
+             $('#messageAddingUser').text("Well done ! ");
+        }
+      });
+     }
+     setTimeout(function(){
+     $('#messageAddingUser').text("");
+    },3000);
   }
 });
 Template.userList.onCreated(function(){
