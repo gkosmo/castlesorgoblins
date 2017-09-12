@@ -8,6 +8,7 @@ Meteor.methods({
      }
      doc.creatorId = this.userId;
      doc.members= [];
+     doc.status = "Just Created";
      return Game.insert(doc);
   }
 

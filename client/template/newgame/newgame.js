@@ -53,16 +53,14 @@ Template.newgame.events({
       return Template.instance().attributesPlayers.set(attrList);
   },
   "click #createGame":function(event, template){
-    var game = {}
+    var game = {};
     game.name = $('#gameName').val();
     game.description= $('#gameDescription').val();
     game.private = template.find('#privateGame').checked;
     game.attributeList = Template.instance().attributesPlayers.get();
-    game.members = [];
    var parentView = Blaze.currentView.parentView.parentView;
+   game.members = [];
    var parentInstance = parentView.templateInstance();
-
-
     Meteor.call("createGame",game, function(error, result){
       if(error){
         console.log("error", error);
