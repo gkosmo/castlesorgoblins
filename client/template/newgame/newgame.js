@@ -8,7 +8,7 @@ Template.userList.events({
   "click #addThisFriend": function(event, template){
      var doneAlready = false;
      for( var i = 0; i < template.data.game.members.length; i++){
-        if ( Meteor.users.findOne({ _id: Meteor.userId() }).username == template.data.game.members[i].userId ) {
+        if ( event.target.innerText == template.data.game.members[i].userId ) {
            doneAlready = true;
            $('#messageAddingUser').text("added already..");
         }
@@ -80,4 +80,62 @@ Template.newgame.helpers({
   attributesPlayers: function(){
     return Template.instance().attributesPlayers.get();
   }
+});
+Template.newPlayer.onCreated(function(){
+  var self = this;
+  self.attributesPlayers = new ReactiveVar([]);
+  self.autorun(function(){
+  });
+});
+Template.newPlayer.helpers({
+  attributesPlayers: function(){
+    return Template.instance().attributesPlayers.get();
+  }
+});
+Template.newPlayer.events({
+  "click #addPlayer": function(event, template){
+        var player = {};
+        player.name = $("#playerName").val();
+        player.class = $("#playerClass").val();
+        player.race = $("#playerRace").val();
+        player.alignment = $("#playerAlignment").val();
+        player.personality = $("#playerPersonality").val();
+        player.deepWishes = $("#playerDeepWishes").val();
+        player.weakness = $("#playerWeakness").val();
+        player.history = $("#playerHistory").val();
+        player.attributesGeneral = [];
+        for( let i = 0; i < template.data.attributeList.length; i++){
+           var attr = {};
+           attr.name = template.data.attributeList[i].name;
+           attr.description = template.data.attributeList[i].description;
+           let idAttr = "#"+ attr.name;
+           attr.point = $(idAttr).val();
+           
+           player.attributesGeneral.push(attr);
+        }
+        player.attributesPersonnal =  Template.instance().attributesPlayers.get();
+        player.weapons = [];
+        player.xp = 20;
+        // example of updated element of array
+         // db.bruno.insert({"array": [{"name": "Hello", "value": "World"}, {"name": "Joker", "value": "Batman"}]})
+        // db.bruno.update({"array.name": "Hello"}, {$set: {"array.$.value": "Change"}})
+        Meteor.call("playerCreation", player, template.data.gameId, function(error, result){
+          if(error){
+            $('#messagePlayerCreation').text("problem on server" + error.message );
+            console.log("error", error);
+          }
+          if(result){
+            $('#messagePlayerCreation').text("Player Fully Created ");
+          }
+        });
+      },
+      "click #addAttribute": function(event, template){
+        var attrList = Template.instance().attributesPlayers.get();
+          var attName =  $('#attributeName').val();
+          var attDescr = $('#attributeDescription').val();
+          var attrMaxPoint = parseInt($("#attributeMaxPoint").val());
+          attrList.push({ name: attName, description: attDescr, point: attrMaxPoint});
+          console.log(attrList);
+          return Template.instance().attributesPlayers.set(attrList);
+      }
 });

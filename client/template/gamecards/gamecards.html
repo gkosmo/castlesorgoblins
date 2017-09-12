@@ -20,7 +20,7 @@
           {{> userList}}
       {{/if}}
       {{#if userIsPlayer}}
-      {{> newPlayer attributeList=game.attributeList}}
+      {{> newPlayer  attributeList=game.attributeList gameId=game._id}}
       {{/if}}
        Members of the game:
        {{#each member in game.members}}

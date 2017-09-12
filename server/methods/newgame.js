@@ -10,6 +10,19 @@ Meteor.methods({
      doc.members= [];
      doc.status = "Just Created";
      return Game.insert(doc);
+  },
+  "playerCreation":function(player, game){
+    // example of updated element of array
+     // db.bruno.insert({"array": [{"name": "Hello", "value": "World"}, {"name": "Joker", "value": "Batman"}]})
+    // db.bruno.update({"array.name": "Hello"}, {$set: {"array.$.value": "Change"}})
+   //db.students.update(
+   //    { _id: 4, "grades.grade": 85 },
+   //    { $set: { "grades.$.std" : 6 } }
+   // )
+    var username =  Meteor.users.findOne({ _id: this.userId }).username
+    player.userId= username;
+    console.log(player);
+    return Game.update({_id: game, "members.userId":username}, {$set: {  "members.$": player   }})
   }
 
 });
