@@ -35,6 +35,8 @@
       Please Login to play
   {{/if}}
 </template>
+
+
 <template name="newPlayer">
   <fieldset>
 <legend> Do this Quest ! </legend>
@@ -56,18 +58,26 @@
     <input type="textarea" name="playerHistory" id="playerHistory" value="">
     List of General Attributes
     {{#each attribute in attributeList }}
-      <label for="{{attribute.name}}">{{attribute.name}}</label>
-      <input type="text" name="{{attribute.name}}" id="class" value="">
+      <label for="{{attribute.name}}"> Point for {{attribute.name}}</label>
+      <input type="number" name="{{attribute.name}}" id="{{attribute.name}}" value="">
     {{/each}}
     List of Personnal Attributes
-    {{#each attribute in attributesPlayers }}
-        {{attribute}}
-    {{/each}}
-      <label for="attributePersonnalName"> Name of the attribute</label>
-      <input type="text" id="attributePersonnalName" value="">
-      <button id="addAttribute"> Add Attribute </button>
-      <button id="addPlayer"></button>
+   {{#each attribute in attributesPlayers }}
+         <h2>{{attribute.name}} </h2>
+         <h3> {{attribute.description}} </h3>
+   {{/each}}
+
+     <label for="attributeName"> Name of the attribute</label>
+     <input type="text" id="attributeName" value="">
+     <label for="attributeDescription"> Description of the attribute</label>
+     <input type="textarea" id="attributeDescription" value="">
+     <label for="attributeMaxPoint"> Max Point for that attribute </label>
+     <input type="number" id="attributeMaxPoint" value="">
+
+     <button id="addAttribute"> Add Attribute </button>
+      <button id="addPlayer"> add Character </button>
   </fieldset>
+     <h2 id="messagePlayerCreation"></h2>
 </template>
 
 

@@ -3,7 +3,7 @@ Meteor.methods({
      if( game.creatorId == this.userId ) {
     var member = {
     userId: username,
-    name: username,
+    name: "",
     attributesGeneral: [],
     attributesPersonnal: [],
     weapons: [],
