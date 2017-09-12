@@ -6,6 +6,9 @@
   {{#if gameLobbyOn }}
       {{> gameLobby game=gameVar}}
   {{/if}}
+   {{#if gameItselfOn }}
+      {{> gameLobby game=gameVar}}
+  {{/if}}
 </template>
 
 <template name="gameCard">
@@ -13,7 +16,7 @@
 
 </template>
 <template name="gameLobby">
-    <h1>  {{game.name}} </h1>
+    <h1> {{game.name}} </h1>
       {{#if userIsDM}}
       <button id="deleteGame" style="background: red;"> Delete This Game </button>
 

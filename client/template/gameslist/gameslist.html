@@ -1,0 +1,9 @@
+<template name="gameGamesList">
+	{{#each game in games.games}}
+   <b id="gameNames"> {{ game.gameName }}</b>
+  {{/each}}
+     {{#if gameItselfOn }}
+      {{> gameLobby game=gameVar}}
+  {{/if}}
+
+</template>
