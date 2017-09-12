@@ -69,11 +69,13 @@
       <button id="addPlayer"></button>
   </fieldset>
 </template>
+
+
 <template name="userList">
     <h1 id="messageAddingUser"></h1>
+    <p>Usernames list </p>
+    <p> click to Add this Friend  </p>
     {{#each listUser}}
-       <p>User ID's</p>
               <h4 id="addThisFriend">{{username}} </h4>
-       <p> Add this Friend </p>
     {{/each}}
 </template>

@@ -8,22 +8,23 @@ Meteor.methods({
      }
      doc.creatorId = this.userId;
      doc.members= [];
+     doc.status = "Just Created";
      return Game.insert(doc);
   }
 
 });
-
-var attributeSchema = new SimpleSchema({
-  name: {
-    type: String,
-    label:' Attribute Name'
-  },
-  point: {
-    type: Number,
-    label:'Attribute Point'
-  },
-  description: {
-    type: String,
-    label: "description"
-  }
-});
+//
+// var attributeSchema = new SimpleSchema({
+//   name: {
+//     type: String,
+//     label:' Attribute Name'
+//   },
+//   point: {
+//     type: Number,
+//     label:'Attribute Point'
+//   },
+//   description: {
+//     type: String,
+//     label: "description"
+//   }
+// });
