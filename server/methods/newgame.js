@@ -13,18 +13,18 @@ Meteor.methods({
   }
 
 });
-
-var attributeSchema = new SimpleSchema({
-  name: {
-    type: String,
-    label:' Attribute Name'
-  },
-  point: {
-    type: Number,
-    label:'Attribute Point'
-  },
-  description: {
-    type: String,
-    label: "description"
-  }
-});
+//
+// var attributeSchema = new SimpleSchema({
+//   name: {
+//     type: String,
+//     label:' Attribute Name'
+//   },
+//   point: {
+//     type: Number,
+//     label:'Attribute Point'
+//   },
+//   description: {
+//     type: String,
+//     label: "description"
+//   }
+// });
