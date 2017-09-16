@@ -59,7 +59,7 @@
     List of General Attributes
     {{#each attribute in attributeList }}
       <label for="{{attribute.name}}"> Point for {{attribute.name}}</label>
-      <input type="number" name="{{attribute.name}}" id="{{attribute.name}}" value="">
+      <input type="number" name="{{attribute.name}}" id="{{attribute.name}}" value="" max={{attribute.point}}>
     {{/each}}
     List of Personnal Attributes
    {{#each attribute in attributesPlayers }}
@@ -75,8 +75,8 @@
      <input type="number" id="attributeMaxPoint" value="">
 
      <button id="addAttribute"> Add Attribute </button>
-      <button id="addPlayer"> add Character </button>
-  </fieldset>
+    </fieldset>
+  <button id="addPlayer"> add Character </button>
      <h2 id="messagePlayerCreation"></h2>
 </template>
 

@@ -4,8 +4,8 @@ Template.home.onCreated(function(){
     self.userDMgames  = new ReactiveVar(false);
 	self.userPLgames  = new ReactiveVar(false);
     self.autorun(function(){
-    self.subscribe('userDMgames');
-	self.subscribe('userPLgames');
+        self.subscribe('userDMgames');
+	       self.subscribe('userPLgames');
     });
 });
 Template.home.events({

@@ -1,6 +1,6 @@
 Template.userList.helpers({
     listUser: function(){
-		console.log(Meteor.users.find({}).fetch());
+
         return Meteor.users.find({});
     }
 });
@@ -44,12 +44,10 @@ Template.newgame.onCreated(function(){
 Template.newgame.events({
   "click #addAttribute": function(event, template){
     var attrList = Template.instance().attributesPlayers.get();
-        console.log(attrList);
       var attName =  $('#attributeName').val();
       var attDescr = $('#attributeDescription').val();
       var attrMaxPoint = parseInt($("#attributeMaxPoint").val());
       attrList.push({ name: attName, description: attDescr, point: attrMaxPoint});
-      console.log(attrList);
       return Template.instance().attributesPlayers.set(attrList);
   },
   "click #createGame":function(event, template){
@@ -63,10 +61,8 @@ Template.newgame.events({
    var parentInstance = parentView.templateInstance();
     Meteor.call("createGame",game, function(error, result){
       if(error){
-        console.log("error", error);
       }
       if(result){
-         console.log("yey");
          // replace parentVariable with the name of the instance variable
               parentInstance.createOn.set(false);
               parentInstance.userDMgames.set(true);
@@ -110,24 +106,29 @@ Template.newPlayer.events({
            attr.description = template.data.attributeList[i].description;
            let idAttr = "#"+ attr.name;
            attr.point = $(idAttr).val();
-           
+
            player.attributesGeneral.push(attr);
         }
         player.attributesPersonnal =  Template.instance().attributesPlayers.get();
         player.weapons = [];
         player.xp = 20;
+           var parentView = Blaze.currentView.parentView.parentView.parentView.parentView;
         // example of updated element of array
          // db.bruno.insert({"array": [{"name": "Hello", "value": "World"}, {"name": "Joker", "value": "Batman"}]})
         // db.bruno.update({"array.name": "Hello"}, {$set: {"array.$.value": "Change"}})
+        console.log(parentView.templateInstance());
         Meteor.call("playerCreation", player, template.data.gameId, function(error, result){
           if(error){
-            $('#messagePlayerCreation').text("problem on server" + error.message );
+            $('#messagePlayerCreation').text("problem on server : " + error.message );
             console.log("error", error);
           }
           if(result){
             $('#messagePlayerCreation').text("Player Fully Created ");
+            parentView.templateInstance().data.game = Game.findOne({_id:template.data.gameId});
+            parentView.templateInstance().userCompleteCaracter.set(true);
           }
         });
+
       },
       "click #addAttribute": function(event, template){
         var attrList = Template.instance().attributesPlayers.get();
@@ -135,7 +136,6 @@ Template.newPlayer.events({
           var attDescr = $('#attributeDescription').val();
           var attrMaxPoint = parseInt($("#attributeMaxPoint").val());
           attrList.push({ name: attName, description: attDescr, point: attrMaxPoint});
-          console.log(attrList);
           return Template.instance().attributesPlayers.set(attrList);
       }
 });
