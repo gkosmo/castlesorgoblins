@@ -1,11 +1,11 @@
 <template name="newgame">
 
-    <!-- {{> quickForm collection="Game"  id="insertBookFormQuick" type="insert"}} -->
+  <!-- {{> quickForm collection="Game"  id="insertBookFormQuick" type="insert"}} -->
   {{#if currentUser}}
     {{#autoForm collection="Game" id="insertGameForm" type="method" meteormethod="createGame"}}
     <fieldset>
-  <legend> Be a Quest Master</legend>
-   <label for="name"> Name of The Game</label>
+      <legend> Be a Quest Master</legend>
+      <label for="name"> Name of The Game</label>
       <input type="text" name="name" id="gameName">
       <!-- {{> afQuickField name='name'}} -->
       <label for="description">Descrption</label>
@@ -14,32 +14,32 @@
       <label for="private"> Private ? </label>
       <input type="checkbox" name="private" id="privateGame">
       <!-- {{> afQuickField name='private'}} -->
-       List of attributes
+      List of attributes
       {{#each attribute in attributesPlayers }}
-            <h2>{{attribute.name}} </h2>
-            <h3> {{attribute.description}} </h3>
+        <h2>{{attribute.name}} </h2>
+        <h3> {{attribute.description}} </h3>
       {{/each}}
 
-        <label for="attributeName"> Name of the attribute</label>
-        <input type="text" id="attributeName" value="">
-        <label for="attributeDescription"> Description of the attribute</label>
-        <input type="textarea" id="attributeDescription" value="">
-        <label for="attributeMaxPoint"> Max Point for that attribute </label>
-        <input type="number" id="attributeMaxPoint" value="">
+      <label for="attributeName"> Name of the attribute</label>
+      <input type="text" id="attributeName" value="">
+      <label for="attributeDescription"> Description of the attribute</label>
+      <input type="textarea" id="attributeDescription" value="">
+      <label for="attributeMaxPoint"> Max Point for that attribute </label>
+      <input type="number" id="attributeMaxPoint" value="">
 
-        <button id="addAttribute"> Add Attribute </button>
+      <button id="addAttribute"> Add Attribute </button>
     </fieldset>
-        <button type="submit" id="createGame"> Create</button>
+    <button type="submit" id="createGame"> Create</button>
     {{/autoForm}}
-    {{else}}
-      Please Login to play
+  {{else}}
+    Please Login to play
   {{/if}}
 </template>
 
 
 <template name="newPlayer">
   <fieldset>
-<legend> Do this Quest ! </legend>
+    <legend> Do this Quest ! </legend>
     <label for="namePlayer"> Caracter's namem</label>
     <input type="text" name="name" id="playerName">
     <label for="playerClass">Class</label>
@@ -62,30 +62,28 @@
       <input type="number" name="{{attribute.name}}" id="{{attribute.name}}" value="" max={{attribute.point}}>
     {{/each}}
     List of Personnal Attributes
-   {{#each attribute in attributesPlayers }}
-         <h2>{{attribute.name}} </h2>
-         <h3> {{attribute.description}} </h3>
-   {{/each}}
-
-     <label for="attributeName"> Name of the attribute</label>
-     <input type="text" id="attributeName" value="">
-     <label for="attributeDescription"> Description of the attribute</label>
-     <input type="textarea" id="attributeDescription" value="">
-     <label for="attributeMaxPoint"> Max Point for that attribute </label>
-     <input type="number" id="attributeMaxPoint" value="">
-
-     <button id="addAttribute"> Add Attribute </button>
-    </fieldset>
+    {{#each attribute in attributesPlayers }}
+      <h2>{{attribute.name}} </h2>
+      <h3> {{attribute.description}} </h3>
+    {{/each}}
+    <label for="attributeName"> Name of the attribute</label>
+    <input type="text" id="attributeName" value="">
+    <label for="attributeDescription"> Description of the attribute</label>
+    <input type="textarea" id="attributeDescription" value="">
+    <label for="attributeMaxPoint"> Max Point for that attribute </label>
+    <input type="number" id="attributeMaxPoint" value="">
+    <button id="addAttribute"> Add Attribute </button>
+  </fieldset>
   <button id="addPlayer"> add Character </button>
-     <h2 id="messagePlayerCreation"></h2>
+  <h2 id="messagePlayerCreation"></h2>
 </template>
 
 
 <template name="userList">
-    <h1 id="messageAddingUser"></h1>
-    <p>Usernames list </p>
-    <p> click to Add this Friend  </p>
-    {{#each listUser}}
-              <h4 id="addThisFriend">{{username}} </h4>
-    {{/each}}
+  <h1 id="messageAddingUser"></h1>
+  <p>Usernames list </p>
+  <p> click to Add this Friend  </p>
+  {{#each listUser}}
+    <h4 id="addThisFriend">{{username}} </h4>
+  {{/each}}
 </template>
