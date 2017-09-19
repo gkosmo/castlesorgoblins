@@ -16,8 +16,12 @@
     <h1> {{game.name}} </h1>
  {{#if userIsDM}}
           {{> gameLobbyDM game=game}}
+          {{ >messages lobbyId= game._id}}
+          {{> input}}
  {{else}}
   {{#if userIsPlayer}}
+   {{ >messages}}
+   {{> input}}
     {{#if userCompleteCaracter}}
       {{> presentMembers members=game.members}}
     {{else}}

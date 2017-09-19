@@ -8,15 +8,17 @@
       {{> newgame}}
     {{/if}}
     {{#if userDMgamesOn}}
-      {{> gameCardsList  games=userDMgames }}	  
+      {{> gameCardsList  games=userDMgames }}
     {{/if}}
 	{{#if userPLgamesOn}}
       {{> gameGamesList games=userPLgames}}
     {{/if}}
 <br><br><br>
+     {{#if publicOn}}
   {{> welcome }}
   {{> input }}
-  {{> messages }}
+  {{> messages lobbyId=lobbyId}}
+   {{/if}}
 </template>
 
 <template name="welcome">
@@ -28,7 +30,7 @@
 <template name="messages">
   <h1>Chatapp</h1>
 
-  {{#each messages}}
+  {{#each messages lobbyId}}
 
     <strong>{{name}}:</strong> {{message}} <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Time:</strong>{{time}} <br>
   {{/each}}
@@ -37,4 +39,3 @@
 <template name="input">
   <p>Message: <input type="text" id="message"></p>
 </template>
-

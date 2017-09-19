@@ -33,7 +33,9 @@ Template.gameLobby.onCreated(function(){
       a = true;}
     }
     self.userCompleteCaracter = new ReactiveVar(a);
-
+ self.autorun(function(){
+    self.subscribe("chatChannel", self.data.game._id);
+ });
   });
   Template.gameLobby.helpers({
     userIsDM: function(){
