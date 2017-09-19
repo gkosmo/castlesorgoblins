@@ -3,37 +3,30 @@
   {{#each game in games}}
     {{> gameCard game=game}}
   {{/each}}
-    {{#if gameLobbyOn }}
-  {{> gameLobby game=gameVar}}
-    {{/if}}
-  {{#if gameItselfOn }}
-    {{> gameLobby game=gameVar}}
-
+  {{#if gameLobbyOn }}
+      {{> gameLobby game=gameVar}}
   {{/if}}
 </template>
 
 <template name="gameCard">
-  <b id="gameName">{{game.name}}</b>
-</template>
+    <b id="gameName">{{game.name}}</b>
 
+</template>
 <template name="gameLobby">
-  <h1> {{game.name}} </h1>
-  {{#if userIsDM}}
-    <button id="deleteGame" style="background: red;"> Delete This Game </button>
-    {{> userList}}
-  {{/if}}
-  {{#if userIsPlayer}}
-    {{#if userCompleteCaracter}}
-      {{> presentMembers members=game.members}}
-    {{else}}
-      {{> newPlayer  attributeList=game.attributeList gameId=game._id}}
-    {{/if}}
-  {{/if}}
-</template>
+    <h1> {{game.name}} </h1>
+      {{#if userIsDM}}
+      <button id="deleteGame" style="background: red;"> Delete This Game </button>
 
-<template name="presentMembers">
-  <h1>  Caracters in this game: </h1>
-  {{#each member in members}}
-    <h2>{{member.name}}</h2>
-  {{/each}}
+          {{> userList}}
+      {{/if}}
+
+      {{#if userIsPlayer}}
+      {{> newPlayer  attributeList=game.attributeList gameId=game._id}}
+      {{/if}}
+       Members of the game:
+       {{#each member in game.members}}
+          <p>
+            {{member.name}}
+          </p>
+       {{/each}}
 </template>

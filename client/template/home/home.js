@@ -1,12 +1,12 @@
 Template.home.onCreated(function(){
-  var self = this;
-  self.createOn = new ReactiveVar(false);
-  self.userDMgames  = new ReactiveVar(false);
-  self.userPLgames  = new ReactiveVar(false);
-  self.autorun(function(){
+    var self = this;
+    self.createOn = new ReactiveVar(false);
+    self.userDMgames  = new ReactiveVar(false);
+	self.userPLgames  = new ReactiveVar(false);
+    self.autorun(function(){
     self.subscribe('userDMgames');
-    self.subscribe('userPLgames');
-  });
+	self.subscribe('userPLgames');
+    });
 });
 Template.home.events({
   "click #create": function(event, template){
@@ -23,6 +23,7 @@ Template.home.events({
   "click #userPLgames":function(event, template){
     Template.instance().createOn.set(false);
      Template.instance().userDMgames.set(false);
+
     Template.instance().userPLgames.get() ? Template.instance().userPLgames.set(false) : Template.instance().userPLgames.set(true);
   }
 });
