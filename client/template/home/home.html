@@ -1,3 +1,4 @@
+
 <template name="home">
     Welcome !
     <button id="create">create a game</button>
@@ -12,4 +13,28 @@
 	{{#if userPLgamesOn}}
       {{> gameGamesList games=userPLgames}}
     {{/if}}
+<br><br><br>
+  {{> welcome }}
+  {{> input }}
+  {{> messages }}
 </template>
+
+<template name="welcome">
+  <p>
+    Let's chat.
+  </p>
+</template>
+
+<template name="messages">
+  <h1>Chatapp</h1>
+
+  {{#each messages}}
+
+    <strong>{{name}}:</strong> {{message}} <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Time:</strong>{{time}} <br>
+  {{/each}}
+</template>
+
+<template name="input">
+  <p>Message: <input type="text" id="message"></p>
+</template>
+
