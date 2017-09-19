@@ -4,7 +4,6 @@ Template.home.onCreated(function(){
     self.userDMgames  = new ReactiveVar(false);
 	self.userPLgames  = new ReactiveVar(false);
     self.autorun(function(){
-    self.subscribe('userDMgames');
 	self.subscribe('userPLgames');
     });
 });
@@ -39,8 +38,5 @@ Template.home.helpers({
   },
   userDMgames: function(){
     return Game.find({creatorId: Meteor.userId()});
-  },
-  userPLgames: function(){
-    return PlayerGameList.find({gameName:gameName});
   }
 });

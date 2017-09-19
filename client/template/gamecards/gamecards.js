@@ -31,12 +31,14 @@ Template.gameCardsList.onCreated(function(){
     self.game = new ReactiveVar();
     self.gameOn = new ReactiveVar(false);
     self.autorun(function(){
+      self.subscribe('userDMgames');
 
     });
 });
 
 Template.gameLobby.helpers({
   userIsDM: function(){
+    console.log(this);
     return this.game.creatorId == Meteor.userId();
   },
   userIsPlayer: function(){
