@@ -36,16 +36,29 @@ Template.gameCardsList.onCreated(function(){
     });
 });
 
-Template.gameLobby.helpers({
-  userIsDM: function(){
-    console.log(this);
-    return this.game.creatorId == Meteor.userId();
-  },
-  userIsPlayer: function(){
-    var a = false;
-    for (var i = 0; i < this.game.members.length; i++ ){
-      if( this.game.members[i].userId == Meteor.user().username ) { a = true;}
+Template.gameLobby.onCreated(function(){
+  var self= this;
+  var a = false;
+  for (var i = 0; i < self.data.game.members.length; i++ ){
+    console.log(self.data.game.members[i]);
+    if( self.data.game.members[i].userId == Meteor.user().username && self.data.game.members[i].name !== '' ) {
+      a = true;}
     }
+    self.userCompleteCaracter = new ReactiveVar(a);
+
+  });
+  Template.gameLobby.helpers({
+    userIsDM: function(){
+      return this.game.creatorId == Meteor.userId();
+    },
+    userIsPlayer: function(){
+      var a = false;
+      for (var i = 0; i < this.game.members.length; i++ ){
+        if( this.game.members[i].userId == Meteor.user().username ) { a = true;}
+      }
       return a;
-  }
-});
+    },
+    userCompleteCaracter: function(){
+      return Template.instance().userCompleteCaracter.get();
+    }
+  });
