@@ -30,7 +30,6 @@ Meteor.methods({
 			gameName:gameName,
 			gameStatus:gameStatus
 		};
-					  console.log(playerGameList,"   first test");
 
 	if (friendGameList.length == 0) {
 	          PlayerGameList.insert({playerId:idPlayer, playerName:username, games:[ playerGameList]});

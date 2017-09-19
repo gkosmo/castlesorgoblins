@@ -9,7 +9,7 @@
     {{#if userDMgamesOn}}
       {{> gameCardsList  games=userDMgames }}
     {{/if}}
-	  {{#if userPLgamesOn}}
-      {{> gameGamesList}}
+	{{#if userPLgamesOn}}
+      {{> gameGamesList games=userPLgames}}
     {{/if}}
 </template>
