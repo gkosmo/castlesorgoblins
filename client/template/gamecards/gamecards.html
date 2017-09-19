@@ -14,17 +14,15 @@
 </template>
 <template name="gameLobby">
     <h1> {{game.name}} </h1>
-      {{#if userIsDM}}
-      <button id="deleteGame" style="background: red;"> Delete This Game </button>
-
-          {{> userList}}
-      {{/if}}
-
-{{#if userIsPlayer}}
-  {{#if userCompleteCaracter}}
-    {{> presentMembers members=game.members}}
-  {{else}}
-    {{> newPlayer  attributeList=game.attributeList gameId=game._id}}
+ {{#if userIsDM}}
+          {{> gameLobbyDM game=game}}
+ {{else}}
+  {{#if userIsPlayer}}
+    {{#if userCompleteCaracter}}
+      {{> presentMembers members=game.members}}
+    {{else}}
+      {{> newPlayer  attributeList=game.attributeList gameId=game._id}}
+    {{/if}}
   {{/if}}
 {{/if}}
 </template>
@@ -32,6 +30,71 @@
 <template name="presentMembers">
 <h1>  Caracters in this game: </h1>
 {{#each member in members}}
-  <h2>{{member.name}}</h2>
+
+    {{#if DMOn}}
+      {{> presentMemberDM member=member}}
+      {{else}}
+      <h2 > {{member.name}}</h2>
+    {{/if}}
 {{/each}}
+</template>
+<template name="presentMemberDM">
+  <h2 id={{member.name}} class="editMember" data-target={{member}}>caracter: {{member.name}} id: {{member.userId}}</h2>
+
+</template>
+<template name="gameLobbyDM">
+
+  <button id="deleteGame" style="background: red;"> Delete This Game </button>
+  {{#if editMemberOn}}
+      {{> editMemberDM member=editMember attributeList=game.attributeList gameId=game._id }}
+  {{/if}}
+  {{> presentMembers members=game.members DMOn=DMOn }}
+    {{> userList}}
+</template>
+
+
+<template name="editMemberDM">
+ <b>{{member.name}} name here</b>
+  <fieldset>
+<legend> Do this Quest ! </legend>
+    <label for="namePlayer"> Caracter's namem</label>
+    <input type="text" name="name" id="playerName" value="{{member.name}}">
+    <label for="playerClass">Class</label>
+    <input type="textarea" name="playerClass" id="playerClass" value={{member.class}} >
+    <label for="playerRace">Race</label>
+    <input type="textarea" name="playerRace" id="playerRace" value={{member.race}}>
+    <label for="playerAlignment">Alignment</label>
+    <input type="textarea" name="playerAlignment" id="playerAlignment" value={{member.alignment}}>
+    <label for="playerPersonality">Personality</label>
+    <input type="textarea" name="playerPersonality" id="playerPersonality" value={{member.personality}}>
+    <label for="playerDeepWishes">DeepWishes</label>
+    <input type="textarea" name="playerDeepWishes" id="playerDeepWishes" value={{member.deepWishes}}>
+    <label for="playerWeakness">Weakness</label>
+    <input type="textarea" name="playerWeakness" id="playerWeakness" value={{member.weakness}}>
+    <label for="playerHistory">History</label>
+    <input type="textarea" name="playerHistory" id="playerHistory" value={{member.history}}>
+    List of General Attributes
+    {{#each attribute in attributeList }}
+      <label for="{{attribute.name}}"> Point for {{attribute.name}}</label>
+      <input type="number" name="{{attribute.name}}" id="{{attribute.name}}" value={{attribte.point}}>
+    {{/each}}
+    List of Personnal Attributes
+   {{#each attribute in attributesPlayers }}
+         <h2 value={{attribte.name}}>{{attribute.name}} </h2>
+         <h3 value={{attribte.description}}> {{attribute.description}} </h3>
+   {{/each}}
+
+     <label for="attributeName"> Name of the attribute</label>
+     <input type="text" id="attributeName" value="">
+     <label for="attributeDescription"> Description of the attribute</label>
+     <input type="textarea" id="attributeDescription" value="">
+     <label for="attributeMaxPoint"> Max Point for that attribute </label>
+     <input type="number" id="attributeMaxPoint" value="">
+
+     <button id="addAttribute"> Add Attribute </button>
+      <button id="changePlayer"> Change Character </button>
+  </fieldset>
+     <h2 id="messagePlayerCreation"></h2>
+
+
 </template>

@@ -18,9 +18,11 @@ Meteor.methods({
    //    { _id: 4, "grades.grade": 85 },
    //    { $set: { "grades.$.std" : 6 } }
    // )
+   if(player.userId == ""){
     var username =  Meteor.users.findOne({ _id: this.userId }).username
-    player.userId= username;
-    return Game.update({_id: game, "members.userId":username}, {$set: {  "members.$": player   }})
+    player.userId = username;
+    }
+    return Game.update({_id: game, "members.userId":player.userId}, {$set: {  "members.$": player   }})
   }
 
 });
