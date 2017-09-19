@@ -20,13 +20,18 @@
           {{> userList}}
       {{/if}}
 
-      {{#if userIsPlayer}}
-      {{> newPlayer  attributeList=game.attributeList gameId=game._id}}
-      {{/if}}
-       Members of the game:
-       {{#each member in game.members}}
-          <p>
-            {{member.name}}
-          </p>
-       {{/each}}
+{{#if userIsPlayer}}
+  {{#if userCompleteCaracter}}
+    {{> presentMembers members=game.members}}
+  {{else}}
+    {{> newPlayer  attributeList=game.attributeList gameId=game._id}}
+  {{/if}}
+{{/if}}
+</template>
+
+<template name="presentMembers">
+<h1>  Caracters in this game: </h1>
+{{#each member in members}}
+  <h2>{{member.name}}</h2>
+{{/each}}
 </template>
