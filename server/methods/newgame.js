@@ -1,6 +1,5 @@
 Meteor.methods({
   'createGame':function(doc){
-    console.log("hey hey enter creategame");
      check(doc.name, String);
      check(doc.description, String);
      for(var i = 0; i < doc.attributeList.length; i ++){
@@ -21,7 +20,6 @@ Meteor.methods({
    // )
     var username =  Meteor.users.findOne({ _id: this.userId }).username
     player.userId= username;
-    console.log(player);
     return Game.update({_id: game, "members.userId":username}, {$set: {  "members.$": player   }})
   }
 

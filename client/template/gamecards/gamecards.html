@@ -6,9 +6,6 @@
   {{#if gameLobbyOn }}
       {{> gameLobby game=gameVar}}
   {{/if}}
-   {{#if gameItselfOn }}
-      {{> gameLobby game=gameVar}}
-  {{/if}}
 </template>
 
 <template name="gameCard">
@@ -22,6 +19,7 @@
 
           {{> userList}}
       {{/if}}
+
       {{#if userIsPlayer}}
       {{> newPlayer  attributeList=game.attributeList gameId=game._id}}
       {{/if}}

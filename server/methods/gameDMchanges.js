@@ -25,7 +25,6 @@ Meteor.methods({
 			gameName:gameName,
 			gameStatus:gameStatus
 		};
-					  console.log(playerGameList,"   first test");
 
 	if (friendGameList.length == 0) {	
 					  console.log(playerGameList);
