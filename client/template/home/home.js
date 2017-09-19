@@ -5,7 +5,7 @@ Template.home.onCreated(function(){
 	self.userPLgames  = new ReactiveVar(false);
     self.autorun(function(){
 	self.subscribe('userPLgames');
-	self.subscribe('messPost');
+	self.subscribe('chatChannel', "public");
 
     });
 });
@@ -40,14 +40,27 @@ Template.home.helpers({
   },
   userDMgames: function(){
     return Game.find({creatorId: Meteor.userId()});
+  },
+  publicOn: function(){
+  var a =  Template.instance().userDMgames.get();
+ var b = Template.instance().userPLgames.get();
+var c =   Template.instance().createOn.get();
+  if( a || b || c ) {
+    return false;
+  } else {
+    return true;
+  }
+  },
+  lobbyId:function(){
+    return "public"
   }
 });
 
 
   Template.messages.helpers({
-    messages: function() {
+    messages: function(lobbyId) {
 var messagesDisplay = [];
-var messList = Messages.find({}, { sort: { time: -1}}).fetch();
+var messList = Messages.find({lobbyId: lobbyId}, { sort: { time: -1}}).fetch();
 for (var i = 0; i < 20; i++) {
 	messagesDisplay.push(messList[i]);
 }
@@ -56,16 +69,23 @@ for (var i = 0; i < 20; i++) {
   }});
 
   Template.input.events = {
-    'keydown input#message' : function (event) {
+    'keydown input#message' : function (event,template) {
     if (event.which == 13) { // 13 is the enter key event
       if (Meteor.user()){
       var name = Meteor.user().username;}
         else{
       var name = 'Anonymous';}
+
+      if(template.data.game) {
+        var lobbyId = template.data.game._id;
+      } else {
+        var lobbyId = "public";
+      }
+
         var message = document.getElementById('message');
         if (message.value != '') {
 var d = new Date();
-		var chat = {name:name, value:message.value, time:d};
+		var chat = {name:name, value:message.value, time:d, lobbyId:lobbyId};
 Meteor.call("chat",chat, function(error, result){
  if (error) {
 }
@@ -73,8 +93,7 @@ Meteor.call("chat",chat, function(error, result){
 
           document.getElementById('message').value = '';
           message.value = '';
-        }
-      }
+         }
+       }
     }
   };
-
