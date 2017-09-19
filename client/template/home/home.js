@@ -36,7 +36,7 @@ Template.home.helpers({
   userDMgames: function(){
     return Game.find({creatorId: Meteor.userId()});
   },
-    userPLgames: function(){
+  userPLgames: function(){
     return PlayerGameList.find({gameName:gameName});
   }
 });

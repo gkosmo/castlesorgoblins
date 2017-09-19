@@ -1,9 +1,61 @@
 <template name="gameGamesList">
-	{{#each game in games.games}}
-   <b id="gameNames"> {{ game.gameName }}</b>
+  {{#each game in games.games}}
+   <b class="gameNames" id="{{game.gameId}}"> {{game.gameName}}</b>
   {{/each}}
      {{#if gameItselfOn }}
-      {{> gameLobby game=gameVar}}
+      {{> myGames }}
   {{/if}}
+</template>
 
+<template name="myGames">
+
+<p>{{game.gameName}}</p>	
+Membres:
+{{membres}} <br>
+<br>
+<!--{{> playerGame }}-->
+{{> newPlayer attributeList=gameattributeList gameId=game_id }}
+</template>
+
+
+<template name="playerGame">
+  <fieldset>
+<legend> {{nameOfGame}} </legend>
+    <label for="namePlayer"> Caracter's name</label>
+    <input type="text" name="name" id="playerName">
+    <label for="playerClass">Class</label>
+    <input type="textarea" name="playerClass" id="playerClass" value="">
+    <label for="playerRace">Race</label>
+    <input type="textarea" name="playerRace" id="playerRace" value="">
+    <label for="playerAlignment">Alignment</label>
+    <input type="textarea" name="playerAlignment" id="playerAlignment" value="">
+    <label for="playerPersonality">Personality</label>
+    <input type="textarea" name="playerPersonality" id="playerPersonality" value="">
+    <label for="playerDeepWishes">DeepWishes</label>
+    <input type="textarea" name="playerDeepWishes" id="playerDeepWishes" value="">
+    <label for="playerWeakness">Weakness</label>
+    <input type="textarea" name="playerWeakness" id="playerWeakness" value="">
+    <label for="playerHistory">History</label>
+    <input type="textarea" name="playerHistory" id="playerHistory" value="">
+    List of General Attributes
+    {{#each attribute in attributeList }}
+      <label for="{{attribute.name}}"> Point for {{attribute.name}} : {{attribute.point}}</label>
+    {{/each}}
+    List of Personnal Attributes
+   {{#each attribute in attributesPlayers }}
+         <h2>{{attribute.name}} </h2>
+         <h3> {{attribute.description}} </h3>
+   {{/each}}
+
+     <label for="attributeName"> Name of the attribute</label>
+     <input type="text" id="attributeName" value="">
+     <label for="attributeDescription"> Description of the attribute</label>
+     <input type="textarea" id="attributeDescription" value="">
+     <label for="attributeMaxPoint"> Max Point for that attribute </label>
+     <input type="number" id="attributeMaxPoint" value="">
+
+     <button id="addAttribute"> Add Attribute </button>
+      <button id="addPlayer"> add Character </button>
+  </fieldset>
+     <h2 id="messagePlayerCreation"></h2>
 </template>
