@@ -1,6 +1,5 @@
 Template.userList.helpers({
     listUser: function(){
-		console.log(Meteor.users.find({}).fetch());
         return Meteor.users.find({});
     }
 });
@@ -110,7 +109,7 @@ Template.newPlayer.events({
            attr.description = template.data.attributeList[i].description;
            let idAttr = "#"+ attr.name;
            attr.point = $(idAttr).val();
-           
+
            player.attributesGeneral.push(attr);
         }
         player.attributesPersonnal =  Template.instance().attributesPlayers.get();

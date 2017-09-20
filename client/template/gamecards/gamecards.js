@@ -32,9 +32,15 @@ Template.gameLobby.onCreated(function(){
     if( self.data.game.members[i].userId == Meteor.user().username && self.data.game.members[i].name !== '' ) {
       a = true;}
     }
+   self.game = new ReactiveVar(self.data.game);
+   console.log(self.game);
     self.userCompleteCaracter = new ReactiveVar(a);
  self.autorun(function(){
-    self.subscribe("chatChannel", self.data.game._id);
+   console.log(self.game.get());
+   Tracker.afterFlush(function(){
+           console.log("From afterFlush:",Messages.find().count())  //--->Line2
+           self.subscribe("chatChannel", self.game.get()._id);
+       });
  });
   });
   Template.gameLobby.helpers({
