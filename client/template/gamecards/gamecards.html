@@ -1,10 +1,12 @@
 <template name="gameCardsList">
   Games List
-  {{#each game in games}}
-    {{> gameCard game=game}}
-  {{/each}}
+
   {{#if gameLobbyOn }}
       {{> gameLobby game=gameVar}}
+  {{else}}
+      {{#each game in games}}
+        {{> gameCard game=game}}
+      {{/each}}
   {{/if}}
 </template>
 
@@ -15,12 +17,13 @@
 <template name="gameLobby">
     <h1> {{game.name}} </h1>
  {{#if userIsDM}}
-          {{> gameLobbyDM game=game}}
+          {{> gameLobbyDM game= game}}
+
           {{ >messages lobbyId= game._id}}
           {{> input}}
  {{else}}
   {{#if userIsPlayer}}
-   {{ >messages}}
+   {{ >messages  lobbyId= game._id}}
    {{> input}}
     {{#if userCompleteCaracter}}
       {{> presentMembers members=game.members}}

@@ -1,8 +1,9 @@
 <template name="gameGamesList">
-  {{#each game in games.games}}
-   <b class="gameNames" id="{{game.gameId}}"> {{game.gameName}}</b>
-  {{/each}}
      {{#if gameItselfOn }}
       {{> gameLobby game=gamep }}
+      {{else}}
+      {{#each game in games.games}}
+      <b class="gameNames" id="{{game.gameId}}"> {{game.gameName}}</b>
+      {{/each}}
   {{/if}}
 </template>
