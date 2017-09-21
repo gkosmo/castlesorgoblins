@@ -28,3 +28,4 @@ check
 tomwasd:history-polyfill
 accounts-ui
 aldeed:autoform
+aldeed:template-extension
