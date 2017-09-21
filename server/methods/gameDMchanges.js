@@ -48,7 +48,19 @@ Meteor.methods({
 
    },
   deleteGame: function(game){
-    return Game.remove({_id: game._id});
+    for (var i = 0; i< game.members.length; i++){
+       console.log(game.members[i]);
+       var idPlayer = Meteor.users.find({username:game.members[i].userId}).fetch()[0]._id;
+       console.log(idPlayer);
+  PlayerGameList.update(
+  { playerId: idPlayer },
+  { '$pull':
+    { 'games':
+       { 'gameId': game._id }
+     }
+   });
+  }
+    return  Game.remove({_id: game._id});
   }
 
 });

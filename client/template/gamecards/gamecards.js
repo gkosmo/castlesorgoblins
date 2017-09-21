@@ -32,11 +32,11 @@ Template.gameLobby.onCreated(function(){
     if( self.data.game.members[i].userId == Meteor.user().username && self.data.game.members[i].name !== '' ) {
       a = true;}
     }
-   self.game = new ReactiveVar(self.data.game);
-   console.log(self.game);
+    self.game = new ReactiveVar(self.data.game);
+    console.log(self.game);
     self.userCompleteCaracter = new ReactiveVar(a);
- self.autorun(function(){
-   console.log(self.game.get());
+    self.autorun(function(){
+      console.log(self.game.get());
    Tracker.afterFlush(function(){
            console.log("From afterFlush:",Messages.find().count())  //--->Line2
            self.subscribe("chatChannel", self.game.get()._id);
@@ -62,12 +62,16 @@ Template.gameLobbyDM.events({
 
   "click #deleteGame":function(event,template){
     console.log(template);
+    var parentView = Blaze.currentView.parentView.parentView.parentView.parentView.parentView.parentView.templateInstance();
+
+
      Meteor.call("deleteGame", template.data.game , function(error, result){
        if(error){
          console.log("error", error);
        }
        if(result){
 
+         parentView.gameOn.set(false);
         return  console.log('deleted');
        }
      });
@@ -112,8 +116,6 @@ Template.editMemberDM.events({
   "click #changePlayer": function(event, template){
         var player = {};
         player.userId = template.data.member.userId;
-
-
         player.name = $("#playerName").val();
         player.class = $("#playerClass").val();
         player.race = $("#playerRace").val();
@@ -136,18 +138,18 @@ Template.editMemberDM.events({
         player.attributesPersonnal =  Template.instance().attributesPlayers.get();
         player.weapons = [];
         player.xp = 20;
-        // example of updated element of array
-         // db.bruno.insert({"array": [{"name": "Hello", "value": "World"}, {"name": "Joker", "value": "Batman"}]})
-        // db.bruno.update({"array.name": "Hello"}, {$set: {"array.$.value": "Change"}})
+        var parentView = Blaze.currentView.parentView.parentView;
         Meteor.call("playerCreation", player, template.data.gameId, function(error, result){
           if(error){
-            $('#messagePlayerCreation').text("problem on server" + error.message );
+            $('#messagePlayerChange').text("problem on server" + error.message );
             console.log("error", error);
           }
           if(result){
-            $('#messagePlayerCreation').text("Player Fully Created ");
-          }
-        });
+
+             $('#messagePlayerChange').text("Player Fully Created ");
+               parentView.parentView.templateInstance().editMemberOn.set(false)
+           }
+         });
       },
       "click #addAttribute": function(event, template){
         var attrList = Template.instance().attributesPlayers.get();
