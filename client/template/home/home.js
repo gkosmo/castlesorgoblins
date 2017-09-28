@@ -92,16 +92,20 @@ var c =   Template.instance().createOn.get();
 
         var message = document.getElementById('message');
         if (message.value != '') {
-var d = new Date();
+						if(message.value.length>57) {
+				alert("Message too long");
+			}
+			else{
+		var d = new Date();
 		var chat = {name:name, value:message.value, time:d, lobbyId:lobbyId};
-Meteor.call("chat",chat, function(error, result){
- if (error) {
-}
+		Meteor.call("chat",chat, function(error, result){
+		if (error) {
+		}
       });
 
           document.getElementById('message').value = '';
           message.value = '';
-         }
+	}}
        }
     }
   };

@@ -1,41 +1,62 @@
 
 <template name="home">
     Welcome !
-    <button id="create">create a game</button>
-    <button id="userDMgames">Created Games</button>
-	<button id="userPLgames">Games as player</button>
+    <button class="btn btn-success" id="create">create a game</button>
+    <button class="btn btn-success" id="userDMgames">Created Games</button>
+	<button class="btn btn-success" id="userPLgames">Games as player</button>
     {{#if createOn}}
+			 <div class="container">
       {{> newgame}}
+	  </div>
     {{/if}}
     {{#if userDMgamesOn}}
+	<br>
+			 <div class="container">
       {{> gameCardsList  games=userDMgames }}
+	  </div>
     {{/if}}
 	{{#if userPLgamesOn}}
+	<br>
+		 <div class="container">
       {{> gameGamesList games=userPLgames}}
+	  </div>
     {{/if}}
 <br><br><br>
      {{#if publicOn}}
+	 <div class="container">
+	 <div class="panel panel-default">
   {{> welcome }}
   {{> input }}
   {{> messages lobbyId=lobbyId}}
+    </div>
+  </div>
    {{/if}}
 </template>
 
 <template name="welcome">
-  <p>
+  <div class="panel-heading">
     Let's chat.
-  </p>
+  </div>
 </template>
 
 <template name="messages">
-  <h1>Chatapp</h1>
 
+  <h1>Chatapp</h1>
+<div class="panel-body">
+<div class="row">
   {{#each messages}}
 
-    <strong>{{name}}:</strong> {{message}} <strong>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;     Time:</strong>{{time}} <br>
+ <div class="col-sm-1">   <strong>{{name}}:</strong>   </div>
+<div class="col-sm-7" style="text-overflow:ellipsis	">	{{message}}    </div>   
+<div class="col-sm-4">	<strong>Time:</strong>{{time}}   </div>
+<br>
   {{/each}}
+  </div>
+  </div>
 </template>
 
 <template name="input">
+<div class="panel panel-default">
   <p>Message: <input type="text" id="message"></p>
+  </div>
 </template>

@@ -1,13 +1,17 @@
 <template name="gameCardsList">
-  Games List
+
+  Games List:
 
   {{#if gameLobbyOn }}
       {{> gameLobby game=gameVar}}
   {{else}}
+
       {{#each game in games}}
         {{> gameCard game=game}}
       {{/each}}
+	
   {{/if}}
+
 </template>
 
 <template name="gameCard">
@@ -18,13 +22,20 @@
     <h1> {{game.name}} </h1>
  {{#if userIsDM}}
           {{> gameLobbyDM game= game}}
-
+	 <div class="container">
+	 <div class="panel panel-default">
           {{ >messages lobbyId= game._id}}
           {{> input}}
+		  </div>
+		  </div>
  {{else}}
   {{#if userIsPlayer}}
+  	 <div class="container">
+	 <div class="panel panel-default">
    {{ >messages  lobbyId= game._id}}
    {{> input}}
+   		  </div>
+		  </div>
     {{#if userCompleteCaracter}}
       {{> presentMembers members=game.members}}
     {{else}}
@@ -39,9 +50,9 @@
 {{#each member in members}}
 
     {{#if DMOn}}
-      {{> presentMemberDM member=member}}
+     <div class="btn btn-default" > {{> presentMemberDM member=member}} </div>
       {{else}}
-      <h2 > {{member.name}}</h2>
+      <h2 class="btn btn-success" > {{member.name}}</h2>
     {{/if}}
 {{/each}}
 </template>
