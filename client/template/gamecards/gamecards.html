@@ -9,7 +9,7 @@
       {{#each game in games}}
         {{> gameCard game=game}}
       {{/each}}
-	
+
   {{/if}}
 
 </template>
@@ -68,13 +68,32 @@
   {{/if}}
   {{> presentMembers members=game.members DMOn=DMOn }}
     {{> userList}}
+   <fieldset>
+     <legend> Your Personnal Notes</legend>
+       <label for="titleDMNote">title</label>
+       <input type="text" id="titleDMNote">
+       <label for="messageDMNote">message</label>
+       <input type="text" id="messageDMNote">
+       <label for="folderDMNote">Which Folder</label>
+       <input type="text" id="folderDMNote">
+       <input type="submit" id="addNote" class='btn btn-default'>
+   </fieldset>
+    {{#each note in userDMNotes}}
+      <b class="openFolder" data-target={{note}}> folder: {{note}}</b>
+      {{#if openFolder note}}
+          {{#each message in openFolders note}}
+          <p> <b> {{message.title}}</b></p>
+          <p>{{message.message}}</p>
+          {{/each}}
+      {{/if}}
+    {{/each}}
 </template>
 
 
 <template name="editMemberDM">
  <b>{{member.name}} name here</b>
  <h2 id="messagePlayerChange"></h2>
- 
+
   <fieldset>
 <legend> Do this Quest ! </legend>
     <label for="namePlayer"> Caracter's namem</label>
