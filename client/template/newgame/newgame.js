@@ -1,19 +1,37 @@
 Template.userList.helpers({
     listUser: function(){
         return Meteor.users.find({});
-    }
+    },
+    settings: function() {
+    return {
+      position: "bottom",
+      limit: 5,
+      rules: [
+        {
+          token: '',
+          collection: Meteor.users,
+          field: "username",
+          template: Template.userName,
+          value: "username"
+        }
+      ]
+    };
+  },
 });
 Template.userList.events({
+
   "click #addThisFriend": function(event, template){
+    var username = template.find('#userToAdd').value;
+
      var doneAlready = false;
      for( var i = 0; i < template.data.game.members.length; i++){
-        if ( event.target.innerText == template.data.game.members[i].userId ) {
+        if ( username == template.data.game.members[i].userId ) {
            doneAlready = true;
            $('#messageAddingUser').text("added already..");
         }
      }
      if (!doneAlready){
-       Meteor.call("addThisFriend", event.target.innerText, template.data.game, function(error, result){
+       Meteor.call("addThisFriend", username, template.data.game, function(error, result){
         if(error){
             $('#messageAddingUser').text("problem on server" + error.message );
         }
