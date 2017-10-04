@@ -28,22 +28,20 @@ Template.gameLobby.onCreated(function(){
   var self= this;
   var a = false;
   for (var i = 0; i < self.data.game.members.length; i++ ){
-    console.log(self.data.game.members[i]);
     if( self.data.game.members[i].userId == Meteor.user().username && self.data.game.members[i].name !== '' ) {
       a = true;}
     }
     self.game = new ReactiveVar(self.data.game);
-    console.log(self.game);
     self.userCompleteCaracter = new ReactiveVar(a);
     self.autorun(function(){
-      console.log(self.game.get());
    Tracker.afterFlush(function(){
-           console.log("From afterFlush:",Messages.find().count())  //--->Line2
+          self.subscribe("")
            self.subscribe("chatChannel", self.game.get()._id);
        });
  });
   });
-  Template.gameLobby.helpers({
+
+Template.gameLobby.helpers({
     userIsDM: function(){
       return this.game.creatorId == Meteor.userId();
     },
@@ -59,42 +57,97 @@ Template.gameLobby.onCreated(function(){
     }
   });
 Template.gameLobbyDM.events({
+  "click #addNote": function(event, template){
+    note= {};
+    note.title = template.find("#titleDMNote").value;
+    note.message = template.find("#messageDMNote").value;
+    note.folder = template.find("#folderDMNote").value;
+    note.gameId = template.data.game._id;
+    Meteor.call('addDMNote', note, function (error, result) {
+      if(error){
+        console.log(error.message);
+      } else {
+           template.find("#titleDMNote").value = "";
+     template.find("#messageDMNote").value = "";
+     template.find("#folderDMNote").value = "";
 
+      }
+
+    });
+  },
   "click #deleteGame":function(event,template){
-    console.log(template);
     var parentView = Blaze.currentView.parentView.parentView.parentView.parentView.parentView.parentView.templateInstance();
-
-
      Meteor.call("deleteGame", template.data.game , function(error, result){
        if(error){
-         console.log("error", error);
        }
        if(result){
-
          parentView.gameOn.set(false);
-        return  console.log('deleted');
        }
      });
+  },
+  "click .openFolder":function(event, template){
+  // var a = event.inner.text;
+   var b = event.currentTarget.dataset.target;
+  // console.log(a);
+   let c = template.openFolder.get();
+   if(isInArray(b, c)){
+    var index = c.indexOf(b);
+    c.splice(index, 1);
+   }else {
+    c.push(b);
+   }
+   template.openFolder.set(c);
   }
 });
 Template.gameLobbyDM.onCreated(function(){
   var self = this;
   self.editMemberOn = new ReactiveVar(false);
   self.editMember = new ReactiveVar();
+  self.openFolder = new ReactiveVar([]);
+  self.autorun(function(){
+     self.subscribe('DM_Notes', self.data.game._id);
+   });
 });
+function isInArray(value, array) {
+  return array.indexOf(value) > -1;
+}
 Template.gameLobbyDM.helpers({
   DMOn: function(){
       return true;
   },
   editMember: function(){
-    console.log(Template.instance().editMember.get());
      return Template.instance().editMember.get();
   },
   editMemberOn: function(){
-  console.log(  Template.instance().editMemberOn.get() );
      return Template.instance().editMemberOn.get();
   },
+    userDMNotes: function(){
+       arr = DMNotes.find({}, {fields: {folder: 1 }}).fetch();
+       var folders = [];
+       for (var i = arr.length - 1; i >= 0; i--) {
+        console.log(arr[i].folder);
+         if(isInArray(arr[i].folder, folders)){
 
+         }else {
+          folders.push(arr[i].folder);
+         }
+      }
+      return folders;
+    },
+    openFolder: function(note){
+      var result = false;
+      var arrayNotes = Template.instance().openFolder.get();
+      for (var i = arrayNotes.length - 1; i >= 0; i--) {
+         if(note === arrayNotes[i]){
+          result = true;
+         }
+       }
+    return result;
+    },
+    openFolders:function(note){
+      return  DMNotes.find({folder: note});
+
+  }
 });
 Template.presentMemberDM.events({
   "click .editMember": function(event, template){
@@ -142,7 +195,6 @@ Template.editMemberDM.events({
         Meteor.call("playerCreation", player, template.data.gameId, function(error, result){
           if(error){
             $('#messagePlayerChange').text("problem on server" + error.message );
-            console.log("error", error);
           }
           if(result){
 
@@ -157,7 +209,6 @@ Template.editMemberDM.events({
           var attDescr = $('#attributeDescription').val();
           var attrMaxPoint = parseInt($("#attributeMaxPoint").val());
           attrList.push({ name: attName, description: attDescr, point: attrMaxPoint});
-          console.log(attrList);
           return Template.instance().attributesPlayers.set(attrList);
       }
 });

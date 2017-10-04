@@ -61,6 +61,11 @@ Meteor.methods({
    });
   }
     return  Game.remove({_id: game._id});
+  },
+  addDMNote: function(note){
+    note.dm_id = this.userId;
+    note.created_at = Date.now();
+    DMNotes.insert(note);
   }
 
 });
