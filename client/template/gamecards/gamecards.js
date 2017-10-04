@@ -20,7 +20,6 @@ Template.gameCardsList.onCreated(function(){
     self.gameOn = new ReactiveVar(false);
     self.autorun(function(){
       self.subscribe('userDMgames');
-
     });
 });
 
@@ -38,6 +37,7 @@ Template.gameLobby.onCreated(function(){
           self.subscribe("")
            self.subscribe("chatChannel", self.game.get()._id);
        });
+	   console.log(self.game);
  });
   });
 
@@ -125,7 +125,6 @@ Template.gameLobbyDM.helpers({
        arr = DMNotes.find({}, {fields: {folder: 1 }}).fetch();
        var folders = [];
        for (var i = arr.length - 1; i >= 0; i--) {
-        console.log(arr[i].folder);
          if(isInArray(arr[i].folder, folders)){
 
          }else {
@@ -190,7 +189,7 @@ Template.editMemberDM.events({
         }
         player.attributesPersonnal =  Template.instance().attributesPlayers.get();
         player.weapons = [];
-        player.xp = 20;
+        player.xp = "20";
         var parentView = Blaze.currentView.parentView.parentView;
         Meteor.call("playerCreation", player, template.data.gameId, function(error, result){
           if(error){
@@ -212,3 +211,32 @@ Template.editMemberDM.events({
           return Template.instance().attributesPlayers.set(attrList);
       }
 });
+
+Template.presentMembers.onCreated(function(){
+	var self = this;
+	self.stat = new ReactiveVar([]);
+});
+
+
+Template.presentMembers.events({
+	"click .playerDropdown" : function(event, template){
+		var z = event.target.innerHTML;
+		var a = template.data.members.length;		
+		for( let i = 0; i < a; i++){
+			var b = template.data.members[i].name;
+			if (b==z){
+			return Template.instance().stat.set(template.data.members[i]);				
+			}
+			else {
+			}
+		}
+	}
+	});
+
+	  Template.presentMembers.helpers({
+		  playerStatz:function(){
+			var a = Template.instance().stat.get();
+		  console.log(a);
+			  return [a] ;
+  }	  
+	  });

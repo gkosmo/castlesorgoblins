@@ -6,7 +6,6 @@ Template.gameGamesList.onCreated(function(){
     self.autorun(function(){
 	self.subscribe('userPLgames');
   self.subscribe('userPLAgames');
-
     });
 });
 
@@ -22,9 +21,7 @@ Template.gameGamesList.helpers({
 },
   gamep: function(){
    var lolMao = Template.instance().gamep.get();
-   console.log(lolMao);
  var a = Game.find({_id:lolMao}).fetch()[0];
- console.log(a);
  return a ;
  },
 
