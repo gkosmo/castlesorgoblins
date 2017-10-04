@@ -86,6 +86,14 @@
     <p>Usernames list </p>
     <p> click to Add this Friend  </p>
     {{#each listUser}}
-              <h4 class="btn btn-success"  id="addThisFriend">{{username}} </h4>
+           <!--    <h4 class="btn btn-success"  id="">{{username}} </h4> -->
     {{/each}}
+       <div class="alert message"></div>
+
+        {{> inputAutocomplete settings=settings id="userToAdd" class="input-xlarge" placeholder="Add Someone..."}}
+        <button id="addThisFriend"> Add someone</button>
+</template>
+
+<template name="userName">
+   <span class="label label-success"> {{username}}</span>
 </template>
