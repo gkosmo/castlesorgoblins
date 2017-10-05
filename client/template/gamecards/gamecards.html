@@ -125,12 +125,12 @@
     List of General Attributes
     {{#each attribute in attributeList }}
       <label for="{{attribute.name}}"> Point for {{attribute.name}}</label>
-      <input type="number" name="{{attribute.name}}" id="{{attribute.name}}" value={{attribte.point}}>
+      <input type="number" name="{{attribute.name}}" id="{{attribute.name}}" value={{attribute.point}}>
     {{/each}}
     List of Personnal Attributes
    {{#each attribute in attributesPlayers }}
-         <h2 value={{attribte.name}}>{{attribute.name}} </h2>
-         <h3 value={{attribte.description}}> {{attribute.description}} </h3>
+      <label for="{{attribute.name}}"> Point for {{attribute.name}}</label>
+      <input type="number" name="{{attribute.name}}" id="{{attribute.name}}" value={{attribute.point}}>
    {{/each}}
 
      <label for="attributeName"> Name of the attribute</label>

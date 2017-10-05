@@ -189,7 +189,7 @@ Template.editMemberDM.events({
         }
         player.attributesPersonnal =  Template.instance().attributesPlayers.get();
         player.weapons = [];
-        player.xp = "20";
+        player.xp = 20;
         var parentView = Blaze.currentView.parentView.parentView;
         Meteor.call("playerCreation", player, template.data.gameId, function(error, result){
           if(error){
@@ -221,11 +221,11 @@ Template.presentMembers.onCreated(function(){
 Template.presentMembers.events({
 	"click .playerDropdown" : function(event, template){
 		var z = event.target.innerHTML;
-		var a = template.data.members.length;		
+		var a = template.data.members.length;
 		for( let i = 0; i < a; i++){
 			var b = template.data.members[i].name;
 			if (b==z){
-			return Template.instance().stat.set(template.data.members[i]);				
+			return Template.instance().stat.set(template.data.members[i]);
 			}
 			else {
 			}
@@ -238,5 +238,5 @@ Template.presentMembers.events({
 			var a = Template.instance().stat.get();
 		  console.log(a);
 			  return [a] ;
-  }	  
+  }
 	  });
