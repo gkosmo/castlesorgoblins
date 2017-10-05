@@ -60,7 +60,6 @@ var c =   Template.instance().createOn.get();
   Template.messages.helpers({
     messages: function() {
       var lobbyId = Template.instance().lobbyId.get();
-      console.log(lobbyId);
       return Messages.find({lobbyId: lobbyId}, { sort: { time: -1}, limit: 20}).fetch();
   }
 });

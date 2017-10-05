@@ -52,7 +52,17 @@
     {{#if DMOn}}
      <div class="btn btn-default" > {{> presentMemberDM member=member}} </div>
       {{else}}
-      <h2 class="btn btn-success" > {{member.name}}</h2>
+	    <div class="dropdown">
+      <button class="btn btn-success dropdown-toggle playerDropdown" data-toggle="dropdown" >{{member.name}}</button>
+	   <ul class="dropdown-menu">
+	   {{#each playerStatz}}
+	   Name:{{this.name}}<br>
+	   Class:{{this.class}}<br>
+	   Alignment:{{this.alignment}}<br>
+	   Race:{{this.race}}
+	   {{/each}}
+	   </ul>
+</div>
     {{/if}}
 {{/each}}
 </template>
