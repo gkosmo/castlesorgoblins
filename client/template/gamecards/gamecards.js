@@ -63,6 +63,8 @@ Template.gameLobbyDM.events({
     note.message = template.find("#messageDMNote").value;
     note.folder = template.find("#folderDMNote").value;
     note.gameId = template.data.game._id;
+    note.public = $("#publicNote").is(":checked");
+    console.log(note.public + "dfdsf sdfsdfs ");
     Meteor.call('addDMNote', note, function (error, result) {
       if(error){
         console.log(error.message);
@@ -97,6 +99,28 @@ Template.gameLobbyDM.events({
     c.push(b);
    }
    template.openFolder.set(c);
+  },
+  "click .deleteDMNote": function(event, template){
+       console.log("ezlrjsdfdsfdse");
+
+      var note = event.currentTarget.dataset.target;
+      console.log(note);
+    let c = template.openFolder.get();
+   if(isInArray(note, c)){
+    c.splice(index, 1);
+   }
+   console.log("ezlrjhljzke");
+   template.openFolder.set(c);
+   console.log(note);
+
+   Meteor.call('deleteDMnote', note, function(error, result){
+    if(error){
+      console.log(error);
+    } if( result){
+      console.log(result)
+    }
+
+   })
   }
 });
 Template.gameLobbyDM.onCreated(function(){
