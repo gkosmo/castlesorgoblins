@@ -86,6 +86,8 @@
        <input type="text" id="messageDMNote">
        <label for="folderDMNote">Which Folder</label>
        <input type="text" id="folderDMNote">
+       <label for="publicNote"> Players can see it ? </label>
+       <input type="checkbox" id='publicNote'>
        <input type="submit" id="addNote" class='btn btn-default'>
    </fieldset>
     {{#each note in userDMNotes}}
@@ -94,7 +96,9 @@
           {{#each message in openFolders note}}
           <p> <b> {{message.title}}</b></p>
           <p>{{message.message}}</p>
-          {{/each}}
+          <button class="deleteDMNote" data-target={{message._id}} > delete </button>
+        <!--   <button class="editDMNote" data-target = {{message._id}}> edit </button>
+ -->          {{/each}}
       {{/if}}
     {{/each}}
 </template>
